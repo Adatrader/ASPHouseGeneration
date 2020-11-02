@@ -34,8 +34,10 @@ immediate_neighbors_construction(XX,YY,TYPE, COUNT) :-
 					      construction(XX,YY,_),
 					      construction_type(TYPE).
 
-% Don't open onto water
-:- construction(XX,YY,door), immediate_neighbors(XX,YY,water, COUNT), COUNT > 0.
+% Don't open door onto water, bridge, trees
+:- construction(XX,YY,door), immediate_neighbors(XX,YY,water, W_COUNT), W_COUNT > 0.
+:- construction(XX,YY,door), immediate_neighbors(XX,YY,bridge, B_COUNT), B_COUNT > 0.
+:- construction(XX,YY,door), immediate_neighbors(XX,YY,tree, T_COUNT), T_COUNT > 0.
 
 % Block side by side doors
 double_door(XX,YY) :- construction(XX,YY,door), construction(XX,YY-1,wall), construction(XX,YY+1,wall).
